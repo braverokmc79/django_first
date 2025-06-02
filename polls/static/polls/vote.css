@@ -1,0 +1,14 @@
+.vote-logo {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.vote-logo img {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.vote-logo h2 {
+  font-size: 24px;
+  color: #1d3557;
+}

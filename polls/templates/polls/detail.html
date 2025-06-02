@@ -1,0 +1,37 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+
+{% block title %}{{ question.question_text }}{% endblock %}
+
+
+{% block css %}
+ <link rel="stylesheet" href="{% static 'polls/detail.css' %}">
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="detail-container">
+  <h2 class="question-title">{{ question.question_text }}</h2>
+
+
+ <form action="{% url 'polls:vote' question.id %}" method="post">
+  {% csrf_token %}
+  <ul class="choice-list">
+    {% for choice in question.choice_set.all %}
+    <li>
+        <label>
+            <input type="radio" name="choice" value="{{ choice.id }}">
+            {{ choice.choice_text }}
+        </label>        
+    </li>
+    {% endfor %}
+  </ul>
+ <button type="submit">투표하기</button>
+</form>
+
+
+</div>
+{% endblock %}

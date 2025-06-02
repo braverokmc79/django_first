@@ -1,36 +1,62 @@
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from .models import Question, Choice
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
+#✅ index 전체 질문중 5개만 조회 (FBA 기반 View)
+# index(최신글 list)
 def index(request):
-    html = """
-    <html>
-    <head>
-        <title>투표 사이트</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f2f2f2;
-                padding: 2em;
-            }
-            h1 {color: #333399;}
-            .box {
-                background: white;
-                padding: 1.5em;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                max-width: 600px;
-                margin: auto;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="box">
-            <h1>안녕하세요!</h1>
-            <p>여기는 <strong>설문조사(polls)</strong> 
-            사이트의 메인 페이지입니다.
-            </p>
-            <p>관리자는 설문을 추가하고, 사용자는 투표할 수 있습니다.</p>
-        </div>
-    </body>
-    </html>
-    """
-    return HttpResponse(html)
+	# return HttpResponse("Hello) 기존코드	
+	latest_question_list = Question.objects.order_by("-pub_date")[:5]
+	context = {"latest_question_list": latest_question_list}
+	return render(request, "polls/index.html", context)
+
+
+#✅ detail : 상세조회
+def detail(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	return render(request, "polls/detail.html", {"question": question})
+
+
+
+#  ✅ results : 결과보기
+def results(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/results.html", {"question": question})
+
+
+#✅ vote : 투표하기 
+def vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)    
+    try:
+        selected_choice= question.choice_set.get(pk=request.POST["choice"])        
+    except (KeyError, Choice.DoesNotExist):
+        # 선택하지 않고 제출한 경우 다시 질문 페이지로
+        return render(request, "polls/detail.html", {
+		  		"question": question,
+			  	 "error_message": "선택을 하지 않았습니다.",
+		    })
+    else:
+      selected_choice.votes += 1
+      selected_choice.save()    
+      # POST 성공 시 리디렉션
+      return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+
+
+    # print("== Vote View Called ==")
+    # print(f"Question ID: {question_id}")
+    # print(f"Request method: {request.method}")
+    # print(f"POST data: {request.POST}")  # POST 방식일 경우 폼 데이터 출력
+
+
+
+
+
+
+
+
+
+
+
+

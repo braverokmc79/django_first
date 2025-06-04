@@ -1,0 +1,24 @@
+{% extends 'polls/base.html' %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>질문 목록</h2>
+    <a href="{% url 'polls:question_create' %}" class="btn btn-primary">+ 새 질문</a>
+  </div>
+
+  {% if object_list %}
+    <ul class="list-group">
+      {% for question in object_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{% url 'polls:question_detail' question.pk %}">{{ question.question_text }}</a>
+          <small class="text-muted">{{ question.pub_date }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>등록된 질문이 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

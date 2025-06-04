@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <h2>질문 수정</h2>
+<form method="post" class="mt-4">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="id_question_text" class="form-label">질문 내용</label>
+    {{ form.question_text }}
+  </div>
+  <div class="mb-3">
+    <label for="id_pub_date" class="form-label">게시 날짜</label>
+    {{ form.pub_date }}
+  </div>
+  <button type="submit" class="btn btn-success">수정</button>
+  <a href="{% url 'polls:questions' %}" class="btn btn-secondary">취소</a>
+</form>
+
+
+</div>
+{% endblock %}

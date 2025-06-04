@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+
+
+
+{% block content %}
+<div class="container mt-5">
+  <h2>새 질문 만들기</h2>
+<form method="post" class="mt-4">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="id_question_text" class="form-label">질문 내용</label>
+    <input type="text" name="question_text" class="form-control" id="id_question_text" value="{{ form.question_text.value|default:'' }}">
+  </div>
+  <div class="mb-3">
+    <label for="id_pub_date" class="form-label">게시 날짜</label>
+    <input type="datetime-local" name="pub_date" class="form-control" id="id_pub_date" value="{{ form.pub_date.value|default:'' }}">
+  </div>
+  <button type="submit" class="btn btn-primary">등록</button>
+  <a href="{% url 'polls:questions' %}" class="btn btn-secondary">취소</a>
+</form>
+
+</div>
+{% endblock %}

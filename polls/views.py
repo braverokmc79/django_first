@@ -1,13 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 
-from .forms import QuestionForm
+from .forms import QuestionForm ,ChoiceForm
 from .models import Question, Choice
 from django.http import HttpResponseRedirect
 from django.urls import reverse ,reverse_lazy
 from django.views.generic import ListView
 from django.db.models import F
 from django.views import generic
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView 
 
 
 #✅ index 전체 질문중 5개만 조회 (FBA 기반 View)
@@ -157,8 +157,25 @@ class QuestionDetailView(DetailView):
     model = Question
     template_name = 'polls/question_detail.html'
     context_object_name = 'question'  # 템플릿에서 사용할 변수명
+   
 
 
+
+#유저가 질문에 대한 선택지(Choice)를 추가할
+class ChoiceCreateView(CreateView):
+    model =Choice
+    form_class = ChoiceForm
+    template_name=  "polls/choice_form.html"
+    
+    def form_valid(self, form):
+        question_id = self.kwargs["question_id"]
+        question = get_object_or_404(Question, pk=question_id)
+        form.instance.question = question
+        return super().form_valid(form)
+    
+    
+    def get_success_url(self):
+        return reverse_lazy('polls:question_detail', kwargs={'pk': self.kwargs['question_id']})
 
 
 

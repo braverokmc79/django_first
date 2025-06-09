@@ -1,5 +1,5 @@
 from django import forms
-from .models import Question
+from .models import Question, Choice
 
 class QuestionForm(forms.ModelForm):
     class Meta:
@@ -12,3 +12,14 @@ class QuestionForm(forms.ModelForm):
                 'type': 'datetime-local'
             }),
         }
+
+
+class ChoiceForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ['choice_text']
+        
+        
+        
+        
+        

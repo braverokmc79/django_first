@@ -25,6 +25,11 @@ urlpatterns = [
     path("questions/update/<int:pk>/", views.QuestionUpdateView.as_view(), name="question_update"),
     path("questions/delete/<int:pk>/", views.QuestionDeleteView.as_view(), name="question_delete"),
  
+ 
+   # 질문 선택등록
+   path("questions/<int:question_id>/add_choice/", views.ChoiceCreateView.as_view(), name="choice_create"),
+ 
+ 
 ]
 
 

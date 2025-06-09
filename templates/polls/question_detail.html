@@ -8,13 +8,34 @@
     <div class="card-body">
       <h5 class="card-title">{{ question.question_text }}</h5>
       <p class="card-text"><strong>등록일:</strong> {{ question.pub_date }}</p>
+
+      <div>
+          <ul class="choice-list">
+              {% for choice in question.choice_set.all %}
+                  <li>
+                      <span>{{ choice.choice_text }}</span>
+                      <span>{{ choice.votes }}표</span>
+                  </li>
+              {% endfor %}
+          </ul>
+
+      </div>  
+
+
       <a href="{% url 'polls:question_update' question.pk %}" class="btn btn-warning">수정</a>
-      <form method="post" action="{% url 'polls:question_delete' question.pk %}" class="d-inline">
+
+
+<form method="post" action="{% url 'polls:question_delete' question.pk %}" class="d-inline">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">삭제</button>
-      </form>
+</form>
+
+
       <a href="{% url 'polls:questions' %}" class="btn btn-secondary">목록</a>
+
+      <a href="{% url 'polls:choice_create' question_id=question.pk  %}" class="btn btn-secondary">답변등록</a>
     </div>
+
   </div>
 </div>
 {% endblock %}

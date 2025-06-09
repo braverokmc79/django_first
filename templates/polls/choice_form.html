@@ -1,0 +1,17 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+
+{% block content %}
+  
+  <h2>선택지 추가</h2>
+  
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">등록</button>
+  </form>
+
+
+{% endblock %}
+

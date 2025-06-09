@@ -25,10 +25,10 @@
       <a href="{% url 'polls:question_update' question.pk %}" class="btn btn-warning">수정</a>
 
 
-<form method="post" action="{% url 'polls:question_delete' question.pk %}" class="d-inline">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">삭제</button>
-</form>
+      <form method="post" action="{% url 'polls:question_delete' question.pk %}" class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">삭제</button>
+      </form>
 
 
       <a href="{% url 'polls:questions' %}" class="btn btn-secondary">목록</a>

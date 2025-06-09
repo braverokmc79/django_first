@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib import admin
 
 # Create your models here.
 
@@ -9,16 +9,20 @@ class Question(models.Model):
         
     #연습용 필드 추가
     #test_fileld=models.CharField(max_length=50, default='임시')
-    
-    
-    def __str__(self):
-        return self.question_text
-    
+    @admin.display(
+        boolean=True,
+        ordering='pub_date',
+        description='최근에 게시되었나요?',
+    )
     def was_published_recently(self):
         from django.utils import timezone
         import datetime
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+            
+    def __str__(self):
+        return self.question_text
     
+
     
 
 class Choice(models.Model):

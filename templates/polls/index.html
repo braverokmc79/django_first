@@ -1,18 +1,42 @@
 {% extends "polls/base.html" %}
+{% load static %}
+
 
 {% block title %}
-<title>최근 질문</title>
+<title>질문 목록</title>
 {% endblock %}
 
 {% block content %}
-<h1>최근 질문</h1>
+<h1 class="mt-5 mb-5">
+    <span class="text-primary">
+       <img src="{% static 'polls/images/f86c4bc4e00739dc.png' %}"
+        alt="질문 목록" width="80" height="80">
+    </span>
+    질문 목록
+</h1>
+
+
+
 {% if latest_question_list %}
 <ul>
     {% for question in latest_question_list %}
-    <li>
+    <li class="text-start">
         <a href="{% url 'polls:detail' question.id %}">
             {{ question.question_text }}
+
         </a>
+
+        
+     <div class="text-muted mt-2">        
+       <a href="{% url 'polls:question_create'  %}" class="btn btn-sm  bg-gray">글생성</a>        
+        <a href="{% url 'polls:question_update' question.pk %}" class="btn btn-sm btn-warning">수정</a>
+        <form method="post" action="{% url 'polls:question_delete' question.pk %}" class="d-inline">
+              {% csrf_token %}
+         <button type="submit" class="btn btn-sm  btn-danger">삭제</button>
+       </form>
+    </div>
+    
+  
     </li>
     {% endfor %}
 </ul>

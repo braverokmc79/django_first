@@ -6,9 +6,9 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ['question_text', 'pub_date']
         widgets = {
-            'question_text': forms.TextInput(attrs={'class': 'form-control'}),
+            'question_text': forms.TextInput(attrs={'class': 'form-control input-h3'}),
             'pub_date': forms.DateTimeInput(attrs={
-                'class': 'form-control', 
+                'class': 'form-control input-h3', 
                 'type': 'datetime-local'
             }),
         }

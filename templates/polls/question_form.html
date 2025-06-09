@@ -3,21 +3,34 @@
 
 
 {% block content %}
-<div class="container mt-5">
-  <h2>새 질문 만들기</h2>
-<form method="post" class="mt-4">
-  {% csrf_token %}
-  <div class="mb-3">
-    <label for="id_question_text" class="form-label">질문 내용</label>
-    <input type="text" name="question_text" class="form-control" id="id_question_text" value="{{ form.question_text.value|default:'' }}">
-  </div>
-  <div class="mb-3">
-    <label for="id_pub_date" class="form-label">게시 날짜</label>
-    <input type="datetime-local" name="pub_date" class="form-control" id="id_pub_date" value="{{ form.pub_date.value|default:'' }}">
-  </div>
-  <button type="submit" class="btn btn-primary">등록</button>
-  <a href="{% url 'polls:questions' %}" class="btn btn-secondary">취소</a>
-</form>
+<div class="container mt-5" style="max-width: 800px;">
+  <div class="card shadow rounded-4 border-0">
+    <div class="card-header bg-gray text-white rounded-top-4 py-3 px-4">
+      <h4 class="mb-0">📝 질문 입력</h4>
+    </div>
+    <div class="card-body px-4 py-4">
+      <form method="post" novalidate>
+        {% csrf_token %}
 
+        <div class="mb-3">
+          <label for="id_question_text" class="form-label fw-semibold">질문 내용</label>
+          <input type="text" name="question_text" class="form-control rounded-3 shadow-sm input-h3"
+                 id="id_question_text" placeholder="질문을 입력하세요"
+                 value="{{ form.question_text.value|default:'' }}">
+        </div>
+
+        <div class="mb-4">
+          <label for="id_pub_date" class="form-label fw-semibold">게시 날짜</label>
+          <input type="datetime-local" name="pub_date" class="form-control rounded-3 shadow-sm input-h3"
+                 id="id_pub_date" value="{{ form.pub_date.value|default:'' }}">
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+          <a href="{% url 'polls:index' %}" class="btn btn-outline-secondary rounded-3 px-4">취소</a>
+          <button type="submit" class="btn bg-gray rounded-3 px-4">등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

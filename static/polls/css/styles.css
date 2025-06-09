@@ -4,6 +4,8 @@ html,body{
     padding:0;
     font-family: 'Segoe UI', sans-serif;
     background-color: #f5f7fa;
+    background:url('../images/background.jpg')  top center;
+    width:100%;
 }
 
 
@@ -127,4 +129,13 @@ color: white;
 text-decoration: none;
 font-weight: bold;
 font-size: 16px;
+}
+
+.bg-gray {
+    background-color: #4a4e69 !important;
+   color: #fff !important;
+}
+
+.input-h3{
+ height:3rem !important;
 }

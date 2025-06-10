@@ -9,6 +9,7 @@ from django.db.models import F
 from django.views import generic
 from django.views.generic.edit import CreateView 
 from django.utils import timezone
+from django.db.models import Count
 
 
 #✅ index 전체 질문중 5개만 조회 (FBA 기반 View)
@@ -189,5 +190,13 @@ class ChoiceCreateView(CreateView):
 
 
 
+def test_question_list(request):
+    #questions = Question.objects.all()
+    #questions = Question.objects.annotate(num_choices=Count('choice')).filter(num_choices__gt=0)
+
+    questions = Question.objects.annotate(num_choices=Count('choice')).order_by('-num_choices')
+
+
+    return render(request, 'polls/question_test_list.html', {'questions': questions})
 
 

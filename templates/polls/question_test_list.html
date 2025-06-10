@@ -1,0 +1,14 @@
+{% extends "polls/base.html" %}
+{% block content %}
+
+<h1>질문 테스트 목록</h1>
+{% for question in questions %}
+
+  <ul>    
+     {{ question.question_text }} (선택지 수: {{question.num_choices }})
+  </ul>
+
+  <hr>
+{% endfor %}
+
+{% endblock %}

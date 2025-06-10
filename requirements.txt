@@ -1,3 +1,15 @@
-asgiref==3.8.1
 Django==5.2.1
+djangorestframework>=3.14
+asgiref==3.8.1
 sqlparse==0.5.3
+gunicorn
+
+# ORM 및 DB
+# psycopg2-binary  # PostgreSQL
+# mysqlclient      # MySQL
+
+# 개발 도구
+pytest
+pytest-django
+python-dotenv
+django-debug-toolbar

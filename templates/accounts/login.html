@@ -1,0 +1,23 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
+{% endblock %}
+
+
+
+{% block content %}
+<div class="login-container">
+  <h2>로그인</h2>
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="login-button">로그인</button>
+  </form>
+  <p class="signup-link">
+    계정이 없으신가요? <a href="{% url 'signup' %}">회원가입</a>
+  </p>
+</div>
+{% endblock %}
+

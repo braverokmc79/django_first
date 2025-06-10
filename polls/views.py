@@ -8,6 +8,8 @@ from django.views.generic import ListView
 from django.db.models import F
 from django.views import generic
 from django.views.generic.edit import CreateView 
+from django.utils import timezone
+from django.db.models import Count
 
 
 #✅ index 전체 질문중 5개만 조회 (FBA 기반 View)
@@ -63,13 +65,22 @@ class IndexView(generic.ListView):
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
     def get_queryset(self):
-        return Question.objects.order_by("-pub_date")[:5]
+        """
+        현재 시간 이전에 게시된 질문만 반환
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
     
 # 질문 상세 페이지
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
     context_object_name = "question"
+    
+    def get_queryset(self):
+        """
+        미래에 게시될 질문은 제외하고, 현재까지 게시된 질문만 보여줌
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
  
  
 # 결과 페이지
@@ -179,5 +190,13 @@ class ChoiceCreateView(CreateView):
 
 
 
+def test_question_list(request):
+    #questions = Question.objects.all()
+    #questions = Question.objects.annotate(num_choices=Count('choice')).filter(num_choices__gt=0)
+
+    questions = Question.objects.annotate(num_choices=Count('choice')).order_by('-num_choices')
+
+
+    return render(request, 'polls/question_test_list.html', {'questions': questions})
 
 

@@ -4,7 +4,8 @@
         <nav class="site-nav">
             <ul>
                 <li><a href="{% url 'polls:index' %}">HOME</a></li>
-                 <li><a href="{% url 'polls:questions'  %}">질문목록</a></li>
+                <li><a href="{% url 'polls:questions'  %}">질문목록</a></li>
+                <li><a href="{% url 'polls:questions_test'  %}">질문테스트</a></li>
 
 
                 {% if user.is_authenticated %}

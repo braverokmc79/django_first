@@ -12,21 +12,29 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# .env 파일 불러오기
+load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g)%+27^8tytj3_noj=k7&)8$%*sj^2^#+5no)y_!53c0c=ub@4'
+#SECRET_KEY = 'django-insecure-g)%+27^8tytj3_noj=k7&)8$%*sj^2^#+5no)y_!53c0c=ub@4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("true", "1")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost").split(",")
 
-ALLOWED_HOSTS = []
+# 환경 변수에서 SECRET_KEY, DEBUG 읽기
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
+
+
+
 
 
 # Application definition
@@ -42,6 +50,7 @@ INSTALLED_APPS = [
     #'polls.apps.PollsConfig', 
     'posts',
     'accounts',
+    'debug_toolbar',               # 디버그 추가
 ]
 
 MIDDLEWARE = [
@@ -52,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  #DebugToolbarMiddleware  추가
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -134,3 +145,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/polls/' #로그인  후 리다이렉트 URL
 LOGOUT_REDIRECT_URL = '/accounts/login/' #로그아웃 후 리다이렉트 URL
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "localhost",
+]
+

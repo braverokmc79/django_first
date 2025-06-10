@@ -1,9 +1,15 @@
-asgiref==3.8.1
 Django==5.2.1
-sqlparse==0.5.3
 djangorestframework>=3.14
+asgiref==3.8.1
+sqlparse==0.5.3
 gunicorn
-#psycopg2-binary  # PostgreSQL 사용 시
-# mysqlclient    # MySQL 사용 시 이걸 대신 사용
+
+# ORM 및 DB
+# psycopg2-binary  # PostgreSQL
+# mysqlclient      # MySQL
+
+# 개발 도구
 pytest
 pytest-django
+python-dotenv
+django-debug-toolbar

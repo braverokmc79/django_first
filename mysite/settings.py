@@ -19,24 +19,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # .env 파일 불러오기
 load_dotenv(dotenv_path=BASE_DIR / ".env")
-# 환경 변수에서 SECRET_KEY, DEBUG 읽기
-SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
-
-
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g)%+27^8tytj3_noj=k7&)8$%*sj^2^#+5no)y_!53c0c=ub@4'
+#SECRET_KEY = 'django-insecure-g)%+27^8tytj3_noj=k7&)8$%*sj^2^#+5no)y_!53c0c=ub@4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("true", "1")
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost").split(",")
 
+# 환경 변수에서 SECRET_KEY, DEBUG 읽기
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
 
-ALLOWED_HOSTS = []
+
+
 
 
 # Application definition

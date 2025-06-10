@@ -2,9 +2,9 @@ name: Django CI  # 이 워크플로우의 이름
 
 on:
   push:
-    branches: [ "Eunice" ]
+    branches: [ "Junho" ]
   pull_request:
-    branches: [ "Eunice" ]
+    branches: [ "Junho" ]
 
 jobs:  # 실행할 작업 정의
   test:

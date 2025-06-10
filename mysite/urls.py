@@ -19,8 +19,12 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-   # path("", include("polls.urls")),
+   
+    path("", include("polls.urls")),
     path("polls/", include("polls.urls")),
-    path("posts/", include("posts.urls")),
+   
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),  # 로그인, 로그아웃, 비밀번호 변경 등 기본 제공 URL 포함
+    
     
 ]

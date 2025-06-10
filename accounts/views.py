@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.contrib.auth.views import LoginView
 
 def signup(request):
     if request.method == 'POST':
@@ -16,3 +16,7 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'accounts/signup.html', {'form': form})    
 
+
+
+class CustomLoginView(LoginView):
+    template_name = 'accounts/login.html'  # 커스텀 템플릿 경

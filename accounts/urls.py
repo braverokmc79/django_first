@@ -7,10 +7,8 @@ from . import views
   
 urlpatterns = [   
     path('signup/', views.signup, name='signup'),
-    
-    #기본적으로 제공하는 로그인 폼 사용
-    #path('login/', views.login, name='login'),
 
+    path('login/', views.CustomLoginView.as_view(), name='login'),  # 커스텀 로그인 뷰 등록
 ]
 
 

@@ -3,7 +3,7 @@ Django==5.2.1
 sqlparse==0.5.3
 djangorestframework>=3.14
 gunicorn
-psycopg2-binary  # PostgreSQL 사용 시
+#psycopg2-binary  # PostgreSQL 사용 시
 # mysqlclient    # MySQL 사용 시 이걸 대신 사용
 pytest
 pytest-django

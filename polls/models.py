@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
-
+from django.utils import timezone
+import datetime
 # Create your models here.
 
 class Question(models.Model):
@@ -15,9 +16,10 @@ class Question(models.Model):
         description='최근에 게시되었나요?',
     )
     def was_published_recently(self):
-        from django.utils import timezone
-        import datetime
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        
+    def is_published(self):
+        return self.pub_date <= timezone.now()     
             
     def __str__(self):
         return self.question_text
